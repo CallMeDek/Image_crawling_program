@@ -2,13 +2,13 @@
     "Records": [
         {
             "keywords": "apple",
-            "limit": 5,
+            "limit": 20,
             "color": "green",
             "print_urls": true
         },
         {
             "keywords": "universe",
-            "limit": 15,
+            "limit": 20,
             "size": "large",
             "print_urls": true
         }
