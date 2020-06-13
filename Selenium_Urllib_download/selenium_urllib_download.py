@@ -6,6 +6,7 @@ from urllib.request import urlopen
 try_import("from googletrans import Translator", "googletrans")
 try_import("from apscheduler.schedulers.background import BackgroundScheduler", "apscheduler")
 try_import("from selenium import webdriver;from selenium.webdriver.common.keys import Keys; from selenium.common.exceptions import TimeoutException", "selenium")
+try_import("from webdriver_manager.chrome import ChromeDriverManager", "webdriver-manager")
 try_import("from googletrans import Translator", "googletrans")  
 try_import("from bs4 import BeautifulSoup", "beautifulsoup4")
     
@@ -15,34 +16,13 @@ def try_import(instruction, package_name):
     except ModuleNotFoundError:
         !pip install --upgrade pip
         !pip install $package_name
-        
+                 
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument("user-agent=Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko")
-try:
-    browser = webdriver.Chrome('chromedriver',options=options)
-except:
-    try:
-        try:
-            !pip install webdriver-manager
-            from selenium import webdriver
-            from webdriver_manager.chrome import ChromeDriverManager
-            browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-        except Exception as ex:
-            print("Please follow the below instructions and try again.")
-            print(
-            """
-            sudo apt-get update
-            sudo apt install chromium-chromedriver
-            cp /usr/lib/chromium-browser/chromedriver /usr/bin
-            """)
-            print(ex)
-            sys.exit()
-    except Exception as e:
-        print(e)
-        sys.exit()
+browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 browser.set_window_size(1024, 768)
         
 keyword = input("Insert keyword: ")
